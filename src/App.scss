@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+html {
+  font-family: 'VT323', sans-serif;
+}
+
+.App {
+  font-family: 'VT323', monospace;
+  letter-spacing: 5px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  font-size: 30px;
+  max-width: max-content;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 100px 20px 100px;
+
+  &__game-number {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: max-content;
+    padding: 10px 20px;
+    gap: 20px;
+  }
+
+  &__player {
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.results-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+@mixin flex-centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$cell-side: 100px;
+
+.game {
+  margin: 50px auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 3 * $cell-side + 10px;
+  gap: 5px;
+
+  &__cell {
+    box-sizing: border-box;
+    width: $cell-side;
+    height: $cell-side;
+    border: 2px rgb(231, 224, 212) solid;
+
+    &--X, &--O {
+      pointer-events: none;
+
+    }
+
+    &--X::before, &--O::before {
+      @include flex-centering;
+
+      height: $cell-side;
+    }
+
+    &--disabled {
+      pointer-events: none;
+    }
+
+    &--X::before {
+      content: 'X';
+    }
+
+    &--O::before {
+      content: 'O';
+    }
+  }
+
+  &__button {
+    font-family: 'VT323', monospace;
+    display: block;
+    margin: 0 auto 50px auto;
+    padding: 20px 60px;
+    font-size: 30px;
+    background-color: antiquewhite;
+  }
+
+  &__line {
+    height: 0;
+    overflow: visible;
+    display: block;
+    width: 2.7 * $cell-side;
+    box-sizing: border-box;
+    border: 1px solid white;
+
+    @for $i from 0 through 2 {
+      &--horizontal-#{$i} {
+        margin: 0 auto;
+        border: 1px solid black;
+        position: relative;
+        top: 0.5 * $cell-side + ($i * ($cell-side + 5px) );
+      }
+    }
+
+    @for $i from 0 through 2 {
+      &--vertical-#{$i} {
+        border: 1px solid black;
+        position: relative;
+        top: 1.6 * $cell-side;
+        left:  (($i - 1) * ($cell-side + 5px) );
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
